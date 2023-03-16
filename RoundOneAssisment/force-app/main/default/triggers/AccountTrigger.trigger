@@ -1,0 +1,21 @@
+trigger AccountTrigger on Account (before insert, after insert,before update, After update) 
+{
+    if(trigger.isInsert)
+    {
+        if(trigger.isBefore)
+        {
+            AccountTriggerHandler.inactiveAccount(trigger.new);
+        }
+        if(trigger.isAfter)
+        {
+            AccountTriggerHandler.createTeamMember(trigger.new);
+        } 
+    }
+    if(trigger.isUpdate)
+    {
+        if(trigger.isBefore)
+        {
+            AccountTriggerHandler.preventEdit(trigger.new);
+        }
+    }
+}
